@@ -40,12 +40,20 @@
             this.scrollToTop();
         },
         methods: {
-            getFormatedDate: function(dateString) {
-                moment.locale('de');
-                return moment(dateString).format('Do MM. YYYY')
-            },
             scrollToTop() {
                 window.scrollTo({top: 0, behavior: 'smooth'});
+            },
+            setSearchResultsVisible(value){
+                this.$store.commit('SET_SEARCH_RESULTS_VISIBLE', value);
+            },
+            getFormatedDate: function(dateString) {
+                if(dateString !=""){
+                    moment.locale('de');
+                    return moment(dateString).format('DD MM. YYYY')
+                }else{
+                    return 'kein Datum vorhanden'
+                }
+
             }
         }
     }

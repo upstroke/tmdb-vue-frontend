@@ -37,5 +37,12 @@ export default {
         let reqTwoTV = httpClient.get(`/tv/${tvID}/credits?api_key=${apiKey}&language=${apiLang}`)
 
         return axios.all([reqOneTV, reqTwoTV])
+    },
+
+    getSearchTerm(term) {
+        let reqOneMovies = httpClient.get(`/search/movie?api_key=${apiKey}&language=${apiLang}&query=${term}`)
+        let reqOneTvShows = httpClient.get(`/search/tv?api_key=${apiKey}&language=${apiLang}&query=${term}`)
+
+        return axios.all([reqOneMovies, reqOneTvShows])
     }
 }

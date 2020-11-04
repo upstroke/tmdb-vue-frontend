@@ -9,8 +9,13 @@
         props: ['id', 'movie','mediatype'],
         methods: {
             getFormatedDate: function(dateString) {
-                moment.locale('de');
-                return moment(dateString).format('Do MM. YYYY')
+                if(dateString !=""){
+                    moment.locale('de');
+                    return moment(dateString).format('DD MM. YYYY')
+                }else{
+                    return 'kein Datum vorhanden'
+                }
+
             }
         }
 

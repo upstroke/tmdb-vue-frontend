@@ -1,5 +1,5 @@
 <template>
-    <main class="ui container">
+    <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
         <h2 class="ui dividing header right">Discover</h2>
         <div class="spacer">
             <p>Discover movies by different types of data like average rating, number of votes, genres and certifications.</p>
@@ -48,6 +48,11 @@
             }).catch(e => {
                 console.log('error: ',e)
             })
+        },
+        methods: {
+            setSearchResultsVisible(value){
+                this.$store.commit('SET_SEARCH_RESULTS_VISIBLE', value);
+            }
         }
     }
 </script>

@@ -1,31 +1,65 @@
 <div class="ui left aligned transparent category search">
     <div class="ui icon transparent inverted input">
-        <input class="prompt" type="text" placeholder="Film oder TV-Serie finden" />
+        <input class="prompt" type="text" placeholder="Film oder TV-Serie finden"
+           @input="onSearch($event)"
+           @mouseenter="movies ? setSearchResultsVisible(true): null"
+        />
         <i class="search icon"></i>
     </div>
 
-    <div class="results transition">
+    <div class="results transition" v-bind:class="{visible: getSearchResultsVisible}">
 
         <!-- search results movies -->
-        <div class="category">
+        <div class="category" v-if="movies">
             <div class="name">
                 <p>Movies</p>
-                <small class="ui blue mini label">300</small>
+                <small class="ui blue mini label">{{movies.total_results}}</small>
             </div>
 
             <div class="results transition">
-                <a class="result">
+                <router-link class="result"
+                    v-for="movie in movies.results"
+                    :to="{name: 'details', params: {mediatype:'movie', id:movie.id}}"
+                    @click="setSearchResultsVisible(false)"
+                >
                     <div class="content">
-                        <div class="title">Title</div>
+                        <div class="title">{{movie.title}}</div>
                         <small class="ui mini basic label">
                             <i class="yellow star icon"></i>
-                            6.00
+                            {{formatRating(movie.vote_average)}}
                         </small>
                     </div>
                     <div class="description">
-                        <small>10.10.2020</small>
+                        <small>{{getFormatedDate(movie.release_date)}}</small>
                     </div>
-                </a>
+                </router-link>
+            </div>
+        </div>
+
+        <!-- search results tv shows -->
+        <div class="category" v-if="shows">
+            <div class="name">
+                <p>TV-Shows</p>
+                <small class="ui blue mini label">{{shows.total_results}}</small>
+            </div>
+
+            <div class="results transition">
+                <router-link class="result"
+                    v-for="show in shows.results"
+                    :to="{name: 'details', params: {mediatype:'tv', id:show.id}}"
+                    @click="setSearchResultsVisible(false)"
+                >
+                    <div class="content">
+                        <div class="title">{{show.name}}</div>
+                        <small class="ui mini basic label">
+                            <i class="yellow star icon"></i>
+                            {{formatRating(show.vote_average)}}
+                        </small>
+                    </div>
+                    <div class="description">
+                        <small>{{getFormatedDate(show.first_air_date)}}</small>
+                    </div>
+                </router-link>
             </div>
         </div>
     </div>

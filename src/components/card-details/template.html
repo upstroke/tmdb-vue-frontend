@@ -1,6 +1,10 @@
-<div class="ui inverted vertical center aligned masthead segment" v-if="SingleMovie">
+<div class="ui inverted vertical center aligned masthead segment"
+     v-if="SingleMovie"
+     @mouseenter="setSearchResultsVisible(false)"
+>
     <div class="masthead-image">
-        <img :src="'http://image.tmdb.org/t/p/original/'+SingleMovie.backdrop_path" alt="" />
+        <img v-if="SingleMovie.backdrop_path" :src="'http://image.tmdb.org/t/p/original/'+SingleMovie.backdrop_path" alt="" />
+        <img v-else src="../../assets/not-available.png" />
     </div>
     <div class="ui text container">
         <h1 class="ui inverted header">

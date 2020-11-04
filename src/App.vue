@@ -1,13 +1,13 @@
 <template>
     <div class="ui top fixed inverted menu">
       <div class="ui container">
-        <router-link class="item" to="/">
+        <router-link class="item" to="/home">
           <i class="home icon"></i> Home
         </router-link>
-        <router-link class="item" to="movies">
+        <router-link class="item" to="/movies">
           <i class="film icon"></i> Filme
         </router-link>
-        <router-link class="item" to="tvshows">
+        <router-link class="item" to="/tvshows">
           <i class="tv icon"></i> TV-Shows
         </router-link>
         <!-- typeahead search -->
@@ -21,7 +21,7 @@
 
     <main-footer />
 
-    <router-view/>
+    <router-view :key="$route.fullPath" />
 </template>
 
 <script>

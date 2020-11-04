@@ -10,7 +10,22 @@
         components: {
             CardDetails
         },
-        props: ['id', 'mediatype']
+        props: ['id', 'mediatype'],
+        methods: {
+            navigateTo(mediatype,id){
+                this.$router.push({
+                    name: 'details',
+                    params: {mediatype:mediatype, id:id}
+                });
+            }
+        },
+        watch: {
+            '$route.params': function () {
+                if(this.$route.params.id !== undefined){
+                    this.navigateTo(this.$route.params.mediatype,this.$route.params.id)
+                }
+            }
+        }
     }
 </script>
 
