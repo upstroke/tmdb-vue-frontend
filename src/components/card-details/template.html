@@ -1,0 +1,87 @@
+<div class="ui inverted vertical center aligned masthead segment" v-if="SingleMovie">
+    <div class="masthead-image">
+        <img :src="'http://image.tmdb.org/t/p/original/'+SingleMovie.backdrop_path" alt="" />
+    </div>
+    <div class="ui text container">
+        <h1 class="ui inverted header">
+            <div class="poster" v-if="SingleMovie.poster_path">
+                <img :src="'http://image.tmdb.org/t/p/w342/'+SingleMovie.poster_path" />
+            </div>
+            {{SingleMovie.title ? SingleMovie.title : SingleMovie.name}}
+        </h1>
+        <ul class="ui inverted" v-if="SingleMovie.production_companies">
+            <li class="item" v-for="company in SingleMovie.production_companies">{{company.name}}</li>
+        </ul>
+        <ul class="ui inverted" v-if="SingleMovie.networks">
+            <li class="item" v-for="network in SingleMovie.networks">{{network.name}}</li>
+        </ul>
+    </div>
+</div>
+
+<main class="ui text container details-view">
+    <div class="ui top left attached">
+        <span class="ui label">{{mediatype}}</span> <span class="ui label"><i class="yellow star icon"></i>{{SingleMovie.vote_average}}</span>
+    </div>
+    <div class="ui celled horizontal list genres" v-if="SingleMovie.genres">
+        <div class="item" v-for="genre in SingleMovie.genres">{{genre.name}}</div>
+    </div>
+
+    <div class="segment">
+        <h2 class="ui medium header">Handlung:</h2>
+        <p class="overview" v-if="SingleMovie.overview">{{SingleMovie.overview}}</p>
+        <p class="small" v-else>keine Information vorhanden</p>
+
+        <h2 class="ui medium header">Webseite:</h2>
+        <a v-if="SingleMovie.homepage" class="home-link" href="{{SingleMovie.homepage}}" target="_blank">{{SingleMovie.homepage}}</a>
+        <p class="small" v-else>keine Information vorhanden</p>
+
+
+        <h2 class="ui medium header">Erschienen:</h2>
+        <p class="small" v-if="SingleMovie.release_date">
+            {{getFormatedDate(SingleMovie.release_date)}}
+        </p>
+        <p class="small" v-if="SingleMovie.first_air_date">
+            {{getFormatedDate(SingleMovie.first_air_date)}}
+        </p>
+        <p class="small" v-if="!SingleMovie.release_date && !SingleMovie.first_air_date">keine Information vorhanden</p>
+
+        <section v-if="mediatype === 'movie'">
+            <h2 class="ui medium header">Spieldauer:</h2>
+            <p class="small" v-if="SingleMovie.runtime"><span>{{SingleMovie.runtime}} Minuten</span></p>
+            <p class="small" v-else>keine Information vorhanden</p>
+        </section>
+
+        <section v-if="mediatype === 'tv'">
+            <h2 class="ui medium header">Staffel-Informationen:</h2>
+            <div class="ui grid">
+                <div class="four wide column cast">
+                    <strong class="header">Status</strong><br/>
+                    <small class="meta">{{SingleMovie.status}}</small>
+                </div>
+                <div class="four wide column cast">
+                    <strong class="header">Staffeln</strong><br/>
+                    <small class="meta">{{SingleMovie.number_of_seasons}}</small>
+                </div>
+                <div class="four wide column cast">
+                    <strong class="header">Episoden</strong><br/>
+                    <small class="meta">{{SingleMovie.number_of_episodes}}</small>
+                </div>
+                <div class="four wide column cast">
+                    <strong class="header">Spieldauer</strong><br/>
+                    <p v-if="SingleMovie.episode_run_time"><small class="meta">{{SingleMovie.episode_run_time[0]}} Minuten pro Episode</small></p>
+                    <p v-else><small>keine Information vorhanden</small></p>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="ui medium header">Cast:</h2>
+        <div class="ui grid" v-if="SingleMovieCast.cast">
+            <div class="four wide column cast" v-for="element in SingleMovieCast.cast">
+                <strong class="header">{{element.character}}</strong><br/>
+                <p class="small meta">{{element.name}}</p>
+            </div>
+        </div>
+        <p class="small" v-else>keine Information vorhanden</p>
+    </div>
+</main>
+

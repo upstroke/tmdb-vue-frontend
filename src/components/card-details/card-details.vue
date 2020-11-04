@@ -1,0 +1,52 @@
+<template src="./template.html"/>
+<style lang="scss" src="./styles.scss" scoped />
+
+<script>
+    // import moment from "moment";
+
+    import http, {axiosInstance} from "../../service/http-client";
+    import moment from "moment";
+
+    export default {
+        name: 'card-details',
+        props: ['id', 'mediatype'],
+        data () {
+            return {
+                SingleMovie: {},
+                SingleMovieCast: {}
+            }
+        },
+        mounted() {
+            if(this.mediatype==='movie'){
+                http.getMovieDetails(this.id).then(axiosInstance.spread((...responses) => {
+                    this.SingleMovie = responses[0].data;
+                    this.SingleMovieCast = responses[1].data;
+                    console.log('SingleMovie',responses[0].data);
+                    console.log('SingleMovieCast',responses[1].data);
+                })).catch(e => {
+                    console.log('error: ', e)
+                });
+            }else{
+                http.getTvShowDetails(this.id).then(axiosInstance.spread((...responses) => {
+                    this.SingleMovie = responses[0].data;
+                    this.SingleMovieCast = responses[1].data;
+                    console.log('SingleTV',responses[0].data);
+                    console.log('SingleTVCast',responses[1].data);
+                })).catch(e => {
+                    console.log('error: ', e)
+                });
+            }
+
+            this.scrollToTop();
+        },
+        methods: {
+            getFormatedDate: function(dateString) {
+                moment.locale('de');
+                return moment(dateString).format('Do MM. YYYY')
+            },
+            scrollToTop() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        }
+    }
+</script>

@@ -1,0 +1,29 @@
+<router-link class="card" :to="{ name: 'details', params: {mediatype:movie.media_type, id:movie.id} }">
+    <div class="image">
+        <img :src="'http://image.tmdb.org/t/p/w342/'+movie.backdrop_path" alt="" />
+
+        <div class="ui top right attached label" v-if="mediatype" :class="mediatype==='movie' ? 'blue' : 'teal'">
+            {{mediatype==='movie' ? 'movie' : 'tv'}}
+        </div>
+    </div>
+    <div class="content">
+        <div class="header">{{movie.title ? movie.title : movie.name}}</div>
+        <div class="meta" v-if="movie.media_type">
+            <span class="date" v-if="movie.media_type==='movie'">{{getFormatedDate(movie.release_date)}}</span>
+            <span class="date" v-if="movie.media_type==='tv'">{{getFormatedDate(movie.first_air_date)}}</span>
+        </div>
+        <div class="meta" v-if="mediatype">
+            <span class="date" v-if="mediatype==='ismovie'">{{getFormatedDate(movie.release_date)}}</span>
+            <span class="date" v-if="mediatype==='istv'">{{getFormatedDate(movie.first_air_date)}}</span>
+        </div>
+    </div>
+    <div class="extra content">
+        <span>Rating:&nbsp;</span>
+        <i class="yellow star icon"></i>
+        <small class="ui label">{{movie.vote_average}}</small>
+    </div>
+    <div class="ui bottom attached button">
+        <i class="add icon"></i>
+        Weitere Informationen
+    </div>
+</router-link>
