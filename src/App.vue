@@ -1,7 +1,7 @@
 <template>
     <div class="ui top fixed inverted menu">
       <div class="ui container">
-        <router-link class="item" to="/home">
+        <router-link class="item" to="/">
           <i class="home icon"></i> Home
         </router-link>
         <router-link class="item" to="/movies">
