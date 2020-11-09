@@ -10,9 +10,9 @@
             <p>Discover movies by different types of data like average rating, number of votes, genres and
                 certifications.</p>
         </div>
-        <div class="ui four doubling cards" v-if="trending" ref="$cards">
-            <card v-for="movie in trending" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="movie.media_type"/>
-            <button class="fluid ui light button" @click="getMore">Weitere Filme</button>
+        <div class="ui four doubling cards" v-if="trending">
+            <card v-for="movie in trending.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="movie.media_type"/>
+            <button class="fluid ui light button" @click="getTrending">Weitere Filme</button>
         </div>
 
 
@@ -32,9 +32,9 @@
 </template>
 
 <script>
-    import http from '../../service/http-client'
-    import Card from '../../components/card/card'
+    import Card from '../../components/card/card';
     import Featured from '../../components/featured/featured'
+    import {mapState} from "vuex";
 
     export default {
         name: 'Home',
@@ -45,45 +45,25 @@
 
         data() {
             return {
-                trendingAll: [],
-                trending: [],
-                page: 0,
-                totalPages: 0
+                maxResultsToLoad : 60
             }
         },
         created() {
-            http.getTrending().then((response) => {
-                this.trendingAll = response.data.results
-                this.trending = this.trendingAll.slice(0, 4);
-                this.page = response.data.page;
-                this.totalPages = response.data.total_pages;
-            }).catch(e => {
-                console.log('error: ', e)
-            });
+
         },
         mounted() {
+            this.getTrending();
         },
         methods: {
             setSearchResultsVisible(value) {
                 this.$store.commit('SET_SEARCH_RESULTS_VISIBLE', value);
             },
-
-            getMore() {
-                // load first 20 (20 results on page 1)
-                if (this.page <= this.totalPages && this.trending.length < this.trendingAll.length) {
-                    this.trending = [...this.trending, ...this.trendingAll.slice(this.trending.length, this.trending.length + 4)]
-                }
-                // else load next 20 (but not more than 40 results total)
-                else if (this.page <= this.totalPages && this.trending.length === this.trendingAll.length && this.trending.length < 40) {
-                    http.getTrending(this.page + 1).then((response) => {
-                        this.trendingAll = [...this.trendingAll, ...response.data.results];
-                        this.page++;
-                        this.trending = [...this.trending, ...this.trendingAll.slice(this.trending.length, this.trending.length + 4)]
-                    }).catch(e => {
-                        console.log('error: ', e)
-                    });
-                }
+            getTrending() {
+                this.$store.dispatch('loadTrending', this.maxResultsToLoad);
             }
+        },
+        computed: {
+            ...mapState(['trending'])
         }
     }
 </script>

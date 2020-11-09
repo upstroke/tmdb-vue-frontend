@@ -53,6 +53,8 @@
             }
         }
 
+        a > *:not(a):not(i) {color: initial};
+
         .ui.divider {
             margin: 2rem 0;
         }

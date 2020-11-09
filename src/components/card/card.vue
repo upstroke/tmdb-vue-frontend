@@ -11,7 +11,7 @@
             getFormatedDate: function(dateString) {
                 if(dateString !=""){
                     moment.locale('de');
-                    return moment(dateString).format('DD MM. YYYY')
+                    return moment(dateString).format('DD. MM. YYYY')
                 }else{
                     return 'kein Datum vorhanden'
                 }

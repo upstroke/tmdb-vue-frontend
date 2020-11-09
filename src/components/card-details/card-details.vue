@@ -21,8 +21,8 @@
                 http.getMovieDetails(this.id).then(axiosInstance.spread((...responses) => {
                     this.SingleMovie = responses[0].data;
                     this.SingleMovieCast = responses[1].data;
-                    console.log('SingleMovie',responses[0].data);
-                    console.log('SingleMovieCast',responses[1].data);
+                    // console.log('SingleMovie',responses[0].data);
+                    // console.log('SingleMovieCast',responses[1].data);
                 })).catch(e => {
                     console.log('error: ', e)
                 });
@@ -30,8 +30,8 @@
                 http.getTvShowDetails(this.id).then(axiosInstance.spread((...responses) => {
                     this.SingleMovie = responses[0].data;
                     this.SingleMovieCast = responses[1].data;
-                    console.log('SingleTV',responses[0].data);
-                    console.log('SingleTVCast',responses[1].data);
+                    // console.log('SingleTV',responses[0].data);
+                    // console.log('SingleTVCast',responses[1].data);
                 })).catch(e => {
                     console.log('error: ', e)
                 });
@@ -49,7 +49,7 @@
             getFormatedDate: function(dateString) {
                 if(dateString !=""){
                     moment.locale('de');
-                    return moment(dateString).format('DD MM. YYYY')
+                    return moment(dateString).format('DD. MM. YYYY')
                 }else{
                     return 'kein Datum vorhanden'
                 }
