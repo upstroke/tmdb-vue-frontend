@@ -13,8 +13,8 @@ export const axiosInstance = axios;
 
 export default {
 
-    getTrending() {
-        return httpClient.get(`/trending/all/week?api_key=${apiKey}&language=${apiLang}`);
+    getTrending(page) {
+        return httpClient.get(`/trending/all/week?api_key=${apiKey}&language=${apiLang}${page>1 ? '&page='+page : null}`);
     },
 
     getMovies() {

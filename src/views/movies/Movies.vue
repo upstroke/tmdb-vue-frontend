@@ -2,7 +2,7 @@
     <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
         <h1 class="ui dividing header">Filme</h1>
         <h3 class="ui header">Top Rated</h3>
-        <div class="ui four cards" v-if="movies">
+        <div class="ui four doubling cards" v-if="movies">
             <card v-for="movie in movies" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="'movie'" />
         </div>
 
