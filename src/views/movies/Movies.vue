@@ -1,9 +1,10 @@
 <template>
     <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
         <h1 class="ui dividing header">Filme</h1>
-        <h3 class="ui header">Top Rated</h3>
+        <h3 class="ui header">Top {{maxResultsToLoad}} Top Rated</h3>
         <div class="ui four doubling cards" v-if="movies">
-            <card v-for="movie in movies" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="'movie'" />
+            <card v-for="movie in movies.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="'movie'" />
+            <button class="fluid ui light button" v-if="movies.results.length < maxResultsToLoad" @click="getMovies">Weitere Filme</button>
         </div>
 
         <!-- loading indicator -->
@@ -21,31 +22,32 @@
 </template>
 
 <script>
-    import http from '../../service/http-client'
-    import Card from '../../components/card/card'
+    import Card from '../../components/card/card';
+    import {mapState} from "vuex";
 
     export default {
         name: 'Movies',
         components: {
             Card
         },
-
         data() {
             return {
-                movies: null
+                maxResultsToLoad : 60,
             }
         },
-        created() {
-            http.getMovies().then((response) => {
-                this.movies = response.data.results;
-            }).catch(e => {
-                console.log('error: ',e)
-            })
+        mounted() {
+            this.getMovies();
         },
         methods: {
             setSearchResultsVisible(value){
                 this.$store.commit('SET_SEARCH_RESULTS_VISIBLE', value);
+            },
+            getMovies() {
+                this.$store.dispatch('loadTmdbData', {'type': 'movies', 'max': this.maxResultsToLoad});
             }
+        },
+        computed: {
+            ...mapState(['movies'])
         }
     }
 </script>

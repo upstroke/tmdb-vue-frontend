@@ -12,17 +12,16 @@ const httpClient = axios.create({
 export const axiosInstance = axios;
 
 export default {
-
-    getTrending(page) {
-        return httpClient.get(`/trending/all/week?api_key=${apiKey}&language=${apiLang}${page>1 ? '&page='+page : null}`);
-    },
-
-    getMovies() {
-        return httpClient.get(`/trending/movie/day?api_key=${apiKey}&language=${apiLang}&vote_average.gte=8`);
-    },
-
-    getTvShows() {
-        return httpClient.get(`/trending/tv/week?api_key=${apiKey}&language=${apiLang}&vote_average.gte=8`);
+    getData(page, type){
+        console.log('type: ',type)
+        switch (type) {
+            case 'trending':
+                return httpClient.get(`/trending/all/week?api_key=${apiKey}&language=${apiLang}${page>1 ? '&page='+page : null}&vote_average.gte=8`);
+            case 'movies':
+                return httpClient.get(`/trending/movie/week?api_key=${apiKey}&language=${apiLang}${page>1 ? '&page='+page : null}&vote_average.gte=8`);
+            case 'tvShows':
+                return httpClient.get(`/trending/tv/week?api_key=${apiKey}&language=${apiLang}${page>1 ? '&page='+page : null}&vote_average.gte=8`);
+        }
     },
 
     getMovieDetails(movieID) {

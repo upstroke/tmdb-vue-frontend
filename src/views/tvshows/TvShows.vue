@@ -1,13 +1,14 @@
 <template>
     <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
         <h1 class="ui dividing header">TV-Shows</h1>
-        <h3 class="ui header">Top Rated</h3>
-        <div class="ui four doubling cards" v-if="movies">
-            <card v-for="movie in movies" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="'tv'" />
+        <h3 class="ui header">Top {{maxResultsToLoad}} Top Rated</h3>
+        <div class="ui four doubling cards" v-if="tvShows">
+            <card v-for="movie in tvShows.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="'tv'" />
+            <button class="fluid ui light button" v-if="tvShows.results.length < maxResultsToLoad" @click="getTvShows">Weitere Filme</button>
         </div>
 
         <!-- loading indicator -->
-        <div class="ui four cards" v-if="!movies">
+        <div class="ui four cards" v-if="!tvShows">
             <div class="card" v-for='index in 4' :key='index'>
                 <div class="content">
                     <div class="ui active inverted dimmer">
@@ -21,31 +22,33 @@
 </template>
 
 <script>
-    import http from '../../service/http-client'
-    import Card from '../../components/card/card'
+    import Card from '../../components/card/card';
+    import {mapState} from "vuex";
+
 
     export default {
         name: 'TvShows',
         components: {
             Card
         },
-
         data() {
             return {
-                movies: null
+                maxResultsToLoad : 60
             }
         },
-        created() {
-            http.getTvShows().then((response) => {
-                this.movies = response.data.results;
-            }).catch(e => {
-                console.log('error: ',e)
-            })
+        mounted() {
+            this.getTvShows();
         },
         methods: {
-            setSearchResultsVisible(value){
+            setSearchResultsVisible(value) {
                 this.$store.commit('SET_SEARCH_RESULTS_VISIBLE', value);
+            },
+            getTvShows() {
+                this.$store.dispatch('loadTmdbData', {'type': 'tvShows', 'max': this.maxResultsToLoad});
             }
+        },
+        computed: {
+            ...mapState(['tvShows'])
         }
     }
 </script>

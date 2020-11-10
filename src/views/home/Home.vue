@@ -5,14 +5,14 @@
 
         <div class="ui hidden divider"></div>
 
-        <h2 class="ui dividing header right">Discover</h2>
+        <h2 class="ui dividing header right">Discover {{maxResultsToLoad}} Top Rated Productions</h2>
         <div class="spacer">
             <p>Discover movies by different types of data like average rating, number of votes, genres and
                 certifications.</p>
         </div>
         <div class="ui four doubling cards" v-if="trending">
             <card v-for="movie in trending.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="movie.media_type"/>
-            <button class="fluid ui light button" @click="getTrending">Weitere Filme</button>
+            <button class="fluid ui light button" v-if="trending.results.length < maxResultsToLoad" @click="getTrending">Weitere Filme</button>
         </div>
 
 
@@ -42,14 +42,10 @@
             Card,
             Featured
         },
-
         data() {
             return {
                 maxResultsToLoad : 60
             }
-        },
-        created() {
-
         },
         mounted() {
             this.getTrending();
@@ -59,7 +55,7 @@
                 this.$store.commit('SET_SEARCH_RESULTS_VISIBLE', value);
             },
             getTrending() {
-                this.$store.dispatch('loadTrending', this.maxResultsToLoad);
+                this.$store.dispatch('loadTmdbData', {'type': 'trending', 'max': this.maxResultsToLoad});
             }
         },
         computed: {
