@@ -1,7 +1,11 @@
 <template>
     <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
-        <h1 class="ui dividing header">Filme</h1>
-        <h3 class="ui header">Top {{maxResultsToLoad}} Top Rated</h3>
+        <h2 class="ui dividing header">Featured Today</h2>
+        <featured movieNumber="19995" getType="movie" />
+
+        <div class="ui hidden divider"></div>
+
+        <h2 class="ui dividing header">Top {{maxResultsToLoad}} Top Rated</h2>
         <div class="ui four doubling cards" v-if="movies">
             <card v-for="movie in movies.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="'movie'" />
             <button class="fluid ui light button" v-if="movies.results.length < maxResultsToLoad" @click="getMovies">Weitere Filme</button>
@@ -23,12 +27,14 @@
 
 <script>
     import Card from '../../components/card/card';
+    import Featured from '../../components/featured/featured';
     import {mapState} from "vuex";
 
     export default {
         name: 'Movies',
         components: {
-            Card
+            Card,
+            Featured
         },
         data() {
             return {

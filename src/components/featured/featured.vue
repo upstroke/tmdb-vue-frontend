@@ -14,8 +14,9 @@
             }
 
         },
+        props: ['movieNumber','getType'],
         created() {
-            http.getMovieDetails('497582').then(axiosInstance.spread((...responses) => {
+            http.getDetails(this.movieNumber, this.getType).then(axiosInstance.spread((...responses) => {
                 this.SingleMovie = responses[0].data;
                 this.SingleMovieCast = responses[1].data;
             })).catch(e => {

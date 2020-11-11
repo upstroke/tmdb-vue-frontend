@@ -21,7 +21,7 @@
 
     <main-footer/>
 
-    <router-view :key="$route.fullPath"/>
+    <router-view />
 </template>
 
 <script>

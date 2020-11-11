@@ -17,25 +17,14 @@
             }
         },
         mounted() {
-            if(this.mediatype==='movie'){
-                http.getMovieDetails(this.id).then(axiosInstance.spread((...responses) => {
-                    this.SingleMovie = responses[0].data;
-                    this.SingleMovieCast = responses[1].data;
-                    // console.log('SingleMovie',responses[0].data);
-                    // console.log('SingleMovieCast',responses[1].data);
-                })).catch(e => {
-                    console.log('error: ', e)
-                });
-            }else{
-                http.getTvShowDetails(this.id).then(axiosInstance.spread((...responses) => {
-                    this.SingleMovie = responses[0].data;
-                    this.SingleMovieCast = responses[1].data;
-                    // console.log('SingleTV',responses[0].data);
-                    // console.log('SingleTVCast',responses[1].data);
-                })).catch(e => {
-                    console.log('error: ', e)
-                });
-            }
+            http.getDetails(this.id, this.mediatype).then(axiosInstance.spread((...responses) => {
+                this.SingleMovie = responses[0].data;
+                this.SingleMovieCast = responses[1].data;
+                // console.log('SingleMovie',responses[0].data);
+                // console.log('SingleMovieCast',responses[1].data);
+            })).catch(e => {
+                console.log('error: ', e)
+            });
 
             this.scrollToTop();
         },

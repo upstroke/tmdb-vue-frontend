@@ -1,7 +1,7 @@
 <template>
     <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
         <h2 class="ui dividing header">Featured Today</h2>
-        <featured/>
+        <featured movieNumber="497582" getType="movie" />
 
         <div class="ui hidden divider"></div>
 
@@ -33,7 +33,7 @@
 
 <script>
     import Card from '../../components/card/card';
-    import Featured from '../../components/featured/featured'
+    import Featured from '../../components/featured/featured';
     import {mapState} from "vuex";
 
     export default {

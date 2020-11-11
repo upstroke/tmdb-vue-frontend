@@ -1,75 +1,57 @@
-<router-link class="ui teaser card" :to="{ name: 'details', params: {id:'497582', mediatype:'movie'} }">
-
-<div class="image">
-    <img v-if="!SingleMovie.backdrop_path" src="../../assets/not-available.png" alt=""/>
-    <img v-else :src="'http://image.tmdb.org/t/p/w780/'+SingleMovie.backdrop_path"/>
-</div>
-<div class="content has-header">
-    <div class="header">
-        {{SingleMovie.title}}
+<div class="ui teaser card">
+    <div class="image">
+        <img v-if="!SingleMovie.backdrop_path" src="../../assets/not-available.png" alt=""/>
+        <img v-else :src="'http://image.tmdb.org/t/p/w780/'+SingleMovie.backdrop_path"/>
     </div>
-</div>
-<div class="content">
-    <h4 class="ui sub header">
-        GENRE: <span v-for="(element,index) in SingleMovie.genres">{{element.name}} {{index+1 < SingleMovie.genres.length ? " / " : ""}}</span>
-        <div class="rating">
-            <span>Rating:&nbsp;</span>
-            <i class="yellow star icon"></i>
-            <small class="ui label">{{SingleMovie.vote_average}}</small>
-        </div>
-    </h4>
-    <div class="ui feed">
-        <div class="event">
-            <div class="content">
-                <h2>{{SingleMovie.original_title}}</h2>
-                <span class="releaseDate">
-<strong>Erschienen: </strong>{{getFormatedDate(SingleMovie.release_date)}}
-</span>
+    <div class="content">
+        <h4 class="ui sub header">
+            GENRE: <span v-for="(element,index) in SingleMovie.genres">{{element.name}} {{index+1 < SingleMovie.genres.length ? " / " : ""}}</span>
+            <div class="rating">
+                <span>Rating:&nbsp;</span>
+                <i class="yellow star icon"></i>
+                <small class="ui label">{{SingleMovie.vote_average}}</small>
             </div>
-        </div>
-        <div class="content">
-            <h3 class="ui dividing header">Produktion:</h3>
-            <div class="ui equal width grid">
-                <div class="column" v-for="company in SingleMovie.production_companies">
-                    <strong v-if="company.name">{{company.name}}</strong>
-                    <strong v-else>keine Informationen vorhanden</strong>
+        </h4>
+        <div class="ui feed">
+            <div class="event">
+                <div class="content">
+                    <h2>{{SingleMovie.original_title ? SingleMovie.original_title : SingleMovie.original_name}}</h2>
+                    <span class="releaseDate"><strong>Erschienen: </strong>{{getFormatedDate(SingleMovie.release_date)}}</span>
                 </div>
             </div>
-        </div>
-        <div class="event">
-            <div class="content">
-                <div class="summary">
-                    <h3 class="ui dividing header">Cast:</h3>
-                    <div class="ui grid">
-                        <div class="four wide column cast" v-for="element in SingleMovieCast.cast">
-                            <span class="header">{{element.character}}</span><br/>
-                            <span class="meta">{{element.name}}</span>
+            <div class="event" v-if="SingleMovieCast.cast">
+                <div class="content">
+                    <div class="summary">
+                        <h3 class="ui header">Cast:</h3>
+                        <div class="ui grid" v-bind:class="{'scroller': SingleMovieCast.cast.length > 4}">
+                            <div class="four wide column cast" v-for="element in SingleMovieCast.cast">
+                                <span class="header">{{element.character}}</span><br/>
+                                <span class="meta">{{element.name}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="spacer">
+            <div class="content">
+                <h3 class="ui header">Webseite:</h3>
+                <p><a href="{{SingleMovie.homepage}}" target="_blank">{{SingleMovie.homepage}}</a></p>
+            </div>
+        </div>
     </div>
-    <div class="spacer">
+
+    <router-link class="ui light button" :to="{ name: 'details', params: {mediatype:getType, id:movieNumber} }">
+        <i class="add icon"></i> Weitere Informationen
+    </router-link>
+
+
+    <div class="ui teaser card" v-if="!SingleMovie">
         <div class="content">
-            <h3 class="ui dividing header">Webseite:</h3>
-            <p><a href="{{SingleMovie.homepage}}" target="_blank">{{SingleMovie.homepage}}</a></p>
+            <div class="ui active inverted dimmer">
+                <div class="ui text loader">Loading</div>
+            </div>
+            <img class="ui wireframe image" src="../../assets/not-available.png">
         </div>
     </div>
 </div>
-
-<div class="ui bottom attached button">
-    <i class="add icon"></i>
-    Weitere Informationen
-</div>
-
-
-<div class="ui teaser card" v-if="!SingleMovie">
-    <div class="content">
-        <div class="ui active inverted dimmer">
-            <div class="ui text loader">Loading</div>
-        </div>
-        <img class="ui wireframe image" src="../../assets/not-available.png">
-    </div>
-</div>
-</router-link>

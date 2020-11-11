@@ -1,9 +1,14 @@
 .ui.teaser.card {
+  box-shadow: none;
   width: 100%;
   margin: 0 auto;
 
+  &:hover {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
   > .image {
-    cursor: pointer;
     height: 350px;
 
     img {
@@ -23,14 +28,20 @@
     }
   }
 
-  .content.has-header {
-    position: absolute;
+  .content {
+    padding: 1rem .1rem 0;
+  }
 
-    .header {
-      color: white;
-      font-size: 2.5rem;
-      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
-    }
+  .summary .ui.grid:not(.scroller) {
+    margin-top: .5rem;
+  }
+
+  .scroller {
+    margin-top: -.5rem;
+    max-width: calc(100% + 15px);
+    max-height: 110px;
+    overflow: hidden;
+    overflow-y: scroll;
   }
 
   .releaseDate {

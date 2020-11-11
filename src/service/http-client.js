@@ -24,9 +24,9 @@ export default {
         }
     },
 
-    getMovieDetails(movieID) {
-        let reqOne = httpClient.get(`/movie/${movieID}?api_key=${apiKey}&language=${apiLang}`)
-        let reqTwo = httpClient.get(`/movie/${movieID}/credits?api_key=${apiKey}&language=${apiLang}`)
+    getDetails(movieID, getType) {
+        let reqOne = httpClient.get(`/${getType}/${movieID}?api_key=${apiKey}&language=${apiLang}`)
+        let reqTwo = httpClient.get(`/${getType}/${movieID}/credits?api_key=${apiKey}&language=${apiLang}`)
 
         return axios.all([reqOne, reqTwo])
     },
