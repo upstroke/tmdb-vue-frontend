@@ -5,11 +5,12 @@
     // import moment from "moment";
 
     import http, {axiosInstance} from "../../service/http-client";
-    import moment from "moment";
+    import mixins from '../../shared/utils'
 
     export default {
         name: 'card-details',
         props: ['id', 'mediatype'],
+        mixins: [mixins],
         data () {
             return {
                 SingleMovie: {},
@@ -34,15 +35,6 @@
             },
             setSearchResultsVisible(value){
                 this.$store.commit('SET_SEARCH_RESULTS_VISIBLE', value);
-            },
-            getFormatedDate: function(dateString) {
-                if(dateString !=""){
-                    moment.locale('de');
-                    return moment(dateString).format('DD. MM. YYYY')
-                }else{
-                    return 'kein Datum vorhanden'
-                }
-
             }
         }
     }

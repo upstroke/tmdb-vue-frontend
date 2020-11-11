@@ -3,10 +3,11 @@
 
 <script>
     import http, {axiosInstance} from "../../service/http-client";
-    import moment from 'moment';
+    import mixins from '../../shared/utils';
 
     export default {
         name: 'featured',
+        mixins: [mixins],
         data() {
             return {
                 SingleMovie: {},
@@ -22,17 +23,6 @@
             })).catch(e => {
                 console.log('error: ', e)
             })
-        },
-        methods: {
-            getFormatedDate: function(dateString) {
-                if(dateString !=""){
-                    moment.locale('de');
-                    return moment(dateString).format('DD. MM. YYYY')
-                }else{
-                    return 'kein Datum vorhanden'
-                }
-
-            }
         }
     }
 

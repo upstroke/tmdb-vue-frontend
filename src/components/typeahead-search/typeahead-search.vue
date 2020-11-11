@@ -3,10 +3,11 @@
 
 <script>
     import http, {axiosInstance} from '../../service/http-client'
-    import moment from "moment";
+    import mixins from "../../shared/utils";
 
     export default {
         name: 'typeahead-search',
+        mixins: [mixins],
         data() {
             return {
                 term: null,
@@ -46,15 +47,6 @@
             },
             setSearchResultsVisible(value){
                 this.$store.commit('SET_SEARCH_RESULTS_VISIBLE', value);
-            },
-            getFormatedDate: function(dateString) {
-                if(dateString !=""){
-                    moment.locale('de');
-                    return moment(dateString).format('DD. MM. YYYY')
-                }else{
-                    return 'kein Datum vorhanden'
-                }
-
             },
             formatRating(value){
                 return value.toFixed(2)
