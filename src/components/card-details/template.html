@@ -2,10 +2,12 @@
      v-if="SingleMovie"
      @mouseenter="setSearchResultsVisible(false)"
 >
-    <div class="masthead-image">
-        <img v-if="SingleMovie.backdrop_path" :src="'http://image.tmdb.org/t/p/original/'+SingleMovie.backdrop_path" alt="" />
-        <img v-else src="../../assets/not-available.png" />
-    </div>
+    <transition name="fade" mode="out-in" :key="SingleMovie.id" appear>
+        <div class="masthead-image">
+            <img v-if="SingleMovie.backdrop_path" :src="'http://image.tmdb.org/t/p/original/'+SingleMovie.backdrop_path" alt="" />
+            <img v-else src="../../assets/not-available.png" />
+        </div>
+    </transition>
     <div class="ui text container">
         <h1 class="ui inverted header">
             <div class="poster" v-if="SingleMovie.poster_path">
@@ -88,4 +90,3 @@
         <p class="small" v-else>keine Information vorhanden</p>
     </div>
 </main>
-

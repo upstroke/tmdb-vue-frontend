@@ -1,11 +1,12 @@
 <router-link class="card" :to="{ name: 'details', params: {mediatype:movie.media_type, id:movie.id} }">
-    <div class="image">
-        <img :src="'http://image.tmdb.org/t/p/w342/'+movie.backdrop_path" alt="" />
-
+    <transition name="fade" mode="out-in" :key="movie.id" appear>
+        <div class="image">
+        <img :src="'http://image.tmdb.org/t/p/w342/'+movie.backdrop_path" alt=""/>
         <div class="ui top right attached label" v-if="mediatype" :class="mediatype==='movie' ? 'blue' : 'teal'">
             {{mediatype==='movie' ? 'movie' : 'tv'}}
         </div>
     </div>
+    </transition>
     <div class="content">
         <div class="header">{{movie.title ? movie.title : movie.name}}</div>
         <div class="meta" v-if="movie.media_type">
