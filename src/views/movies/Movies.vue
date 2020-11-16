@@ -1,5 +1,6 @@
 <template>
-    <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
+    <transition name="fade" mode="out-in" appear>
+        <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
         <h2 class="ui dividing header">Featured Today</h2>
         <featured movieNumber="19995" getType="movie" />
 
@@ -23,6 +24,7 @@
             </div>
         </div>
     </main>
+    </transition>
 </template>
 
 <script>

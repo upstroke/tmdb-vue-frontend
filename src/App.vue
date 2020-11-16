@@ -1,27 +1,40 @@
 <template>
     <div class="ui top fixed inverted menu">
-        <div class="ui container">
-            <router-link class="item" to="/">
-                <i class="home icon"></i> Home
-            </router-link>
-            <router-link class="item" to="/movies">
-                <i class="film icon"></i> Filme
-            </router-link>
-            <router-link class="item" to="/tvshows">
-                <i class="tv icon"></i> TV-Shows
-            </router-link>
+        <ul class="ui container" role="navigation">
+            <li>
+                <router-link class="item" to="/">
+                    <i class="home icon"></i> Home
+                </router-link>
+            </li>
+            <li>
+                <router-link class="item" to="/movies">
+                    <i class="film icon"></i> Filme
+                </router-link>
+            </li>
+            <li>
+                <router-link class="item" to="/tvshows">
+                    <i class="tv icon"></i> TV-Shows
+                </router-link>
+            </li>
             <!-- typeahead search -->
             <div class="right menu searchbar">
                 <div class="item">
                     <type-ahead-search/>
                 </div>
             </div>
-        </div>
+        </ul>
     </div>
+
+    <!--<router-view :key="$route.fullPath" v-slot="slotProps" #match="{ component, params }">
+        <transition name="fade" mode="out-in">
+            <component :is="slotProps.Component" />
+        </transition>
+    </router-view>-->
+
+    <router-view :key="$route.fullPath"></router-view>
 
     <main-footer/>
 
-    <router-view :key="$route.fullPath" />
 </template>
 
 <script>
@@ -42,6 +55,16 @@
     $flags-image-path: '~semantic-ui-sass/images';
     @import "~semantic-ui-sass/semantic-ui";
 
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.35s ease;
+    }
+
+    .fade-enter-from,
+    .fade-leave-active {
+        opacity: 0;
+    }
+
     #app {
         /* You can add global styles to this file, and also import other style files */
         .fixed.menu {
@@ -51,9 +74,20 @@
                 background: rgba(255, 255, 255, .15);
                 color: rgb(255, 255, 255) !important;
             }
+
+            ul.ui.container {
+                margin: 0;
+
+                li {
+                    display: flex;
+                }
+            }
         }
 
-        a > *:not(a):not(i) {color: initial};
+        a > *:not(a):not(i) {
+            color: initial
+        }
+    ;
 
         .ui.divider {
             margin: 2rem 0;

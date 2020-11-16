@@ -1,5 +1,5 @@
 <template>
-    <card-details :id="id" :mediatype="mediatype" />
+    <card-details :id="id" :mediatype="mediatype" :title="title"/>
 </template>
 
 <script>

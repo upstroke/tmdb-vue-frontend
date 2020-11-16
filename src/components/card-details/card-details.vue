@@ -23,9 +23,13 @@
                 this.SingleMovieCast = responses[1].data;
                 // console.log('SingleMovie',responses[0].data);
                 // console.log('SingleMovieCast',responses[1].data);
+                this.$route.meta.title = this.SingleMovie.title ? this.SingleMovie.title : this.SingleMovie.name;
+                console.log(this.$route.meta.title)
             })).catch(e => {
                 console.log('error: ', e)
             });
+
+
 
             this.scrollToTop();
         },

@@ -13,7 +13,6 @@ export const axiosInstance = axios;
 
 export default {
     getData(page, type){
-        console.log('type: ',type)
         switch (type) {
             case 'trending':
                 return httpClient.get(`/trending/all/week?api_key=${apiKey}&language=${apiLang}${page>1 ? '&page='+page : null}&vote_average.gte=8`);
