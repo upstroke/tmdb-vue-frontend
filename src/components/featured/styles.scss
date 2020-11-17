@@ -9,11 +9,19 @@
   }
 
   > .image {
-    height: 350px;
+    height: 550px;
+    margin-top: 40px;
 
-    img {
+    > img {
       height: 100%;
       object-fit: cover;
+      object-position: 50% 30%;
+      border-radius: 0;
+    }
+
+    .ui.label {
+      border-radius: 0;
+      margin: .5rem;
     }
   }
 

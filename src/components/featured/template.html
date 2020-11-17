@@ -2,16 +2,20 @@
     <div class="image">
         <img v-if="!SingleMovie.backdrop_path" src="../../assets/not-available.png" alt=""/>
         <img v-else :src="'http://image.tmdb.org/t/p/w780/'+SingleMovie.backdrop_path"/>
+
+        <div class="ui top right attached label" v-if="getType" :class="getType==='movie' ? 'blue' : 'teal'">
+            featured {{getType==='movie' ? 'Movie' : 'TV-Show'}} today
+        </div>
     </div>
-    <div class="content">
-        <h4 class="ui sub header">
+    <div class="ui container content">
+        <h5 class="ui sub header">
             GENRE: <span v-for="(element,index) in SingleMovie.genres">{{element.name}} {{index+1 < SingleMovie.genres.length ? " / " : ""}}</span>
             <div class="rating">
                 <span>Rating:&nbsp;</span>
                 <i class="yellow star icon"></i>
                 <small class="ui label">{{SingleMovie.vote_average}}</small>
             </div>
-        </h4>
+        </h5>
         <div class="ui feed">
             <div class="event">
                 <div class="content">
@@ -39,15 +43,15 @@
                 <p><a href="{{SingleMovie.homepage}}" target="_blank">{{SingleMovie.homepage}}</a></p>
             </div>
         </div>
-    </div>
 
-    <router-link class="ui light button" :to="{ name: 'details', params: {mediatype:getType, id:movieNumber} }">
-        <i class="add icon"></i> Weitere Informationen
-    </router-link>
+        <router-link class="ui fluid light button" :to="{ name: 'details', params: {mediatype:getType, id:movieNumber} }">
+            <i class="add icon"></i> Weitere Informationen
+        </router-link>
+    </div>
 
 
     <div class="ui teaser card" v-if="!SingleMovie">
-        <div class="content">
+        <div class="ui container content">
             <div class="ui active inverted dimmer">
                 <div class="ui text loader">Loading</div>
             </div>

@@ -1,35 +1,36 @@
 <template>
     <transition name="fade" mode="out-in" appear>
-        <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
-        <h2 class="ui dividing header">Featured Today</h2>
-        <featured movieNumber="497582" getType="movie" />
+        <div @mouseenter="setSearchResultsVisible(false)">
 
-        <div class="ui hidden divider"></div>
+            <featured movieNumber="497582" getType="movie" />
 
-        <h2 class="ui dividing header right">Discover {{maxResultsToLoad}} Top Rated Productions</h2>
-        <div class="spacer">
-            <p>Discover movies by different types of data like average rating, number of votes, genres and
-                certifications.</p>
-        </div>
-        <div class="ui four doubling cards" v-if="trending">
-            <card v-for="movie in trending.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="movie.media_type"/>
-            <button class="fluid ui light button" v-if="trending.results.length < maxResultsToLoad" @click="getTrending">Weitere Filme</button>
-        </div>
-
-
-
-        <!-- loading indicator -->
-        <div class="ui four doubling cards" v-if="!trending">
-            <div class="card" v-for='index in 4' :key='index'>
-                <div class="content">
-                    <div class="ui active inverted dimmer">
-                        <div class="ui text loader">Loading</div>
-                    </div>
-                    <img class="ui wireframe image" src="../../assets/not-available.png">
+            <main class="ui container">
+                <h2 class="ui dividing header">Discover {{maxResultsToLoad}} Top Rated Productions</h2>
+                <div class="spacer">
+                    <p>Discover movies by different types of data like average rating, number of votes, genres and
+                        certifications.</p>
                 </div>
-            </div>
+                <div class="ui four doubling cards" v-if="trending">
+                    <card v-for="movie in trending.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="movie.media_type"/>
+                    <button class="fluid ui button" v-if="trending.results.length < maxResultsToLoad" @click="getTrending">Weitere Filme</button>
+                </div>
+
+
+
+                <!-- loading indicator -->
+                <div class="ui four doubling cards" v-if="!trending">
+                    <div class="card" v-for='index in 4' :key='index'>
+                        <div class="content">
+                            <div class="ui active inverted dimmer">
+                                <div class="ui text loader">Loading</div>
+                            </div>
+                            <img class="ui wireframe image" src="../../assets/not-available.png">
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-    </main>
+
     </transition>
 </template>
 

@@ -1,29 +1,28 @@
 <template>
     <transition name="fade" mode="out-in" appear>
-        <main class="ui container" @mouseenter="setSearchResultsVisible(false)">
-        <h2 class="ui dividing header">Featured Today</h2>
-        <featured movieNumber="82856" getType="tv" />
+        <div @mouseenter="setSearchResultsVisible(false)">
+            <featured movieNumber="82856" getType="tv" />
 
-        <div class="ui hidden divider"></div>
-
-        <h2 class="ui ividing header">Top {{maxResultsToLoad}} Top Rated</h2>
-        <div class="ui four doubling cards" v-if="tvShows">
-            <card v-for="movie in tvShows.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="'tv'" />
-            <button class="fluid ui light button" v-if="tvShows.results.length < maxResultsToLoad" @click="getTvShows">Weitere Filme</button>
-        </div>
-
-        <!-- loading indicator -->
-        <div class="ui four cards" v-if="!tvShows">
-            <div class="card" v-for='index in 4' :key='index'>
-                <div class="content">
-                    <div class="ui active inverted dimmer">
-                        <div class="ui text loader">Loading</div>
-                    </div>
-                    <img class="ui wireframe image" src="../../assets/not-available.png">
+            <main class="ui container">
+                <h2 class="ui ividing header">Top {{maxResultsToLoad}} Top Rated</h2>
+                <div class="ui four doubling cards" v-if="tvShows">
+                    <card v-for="movie in tvShows.results" :key="movie.id" v-bind:movie="movie" v-bind:mediatype="'tv'" />
+                    <button class="fluid ui button" v-if="tvShows.results.length < maxResultsToLoad" @click="getTvShows">Weitere Filme</button>
                 </div>
-            </div>
+
+                <!-- loading indicator -->
+                <div class="ui four cards" v-if="!tvShows">
+                    <div class="card" v-for='index in 4' :key='index'>
+                        <div class="content">
+                            <div class="ui active inverted dimmer">
+                                <div class="ui text loader">Loading</div>
+                            </div>
+                            <img class="ui wireframe image" src="../../assets/not-available.png">
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-    </main>
     </transition>
 </template>
 

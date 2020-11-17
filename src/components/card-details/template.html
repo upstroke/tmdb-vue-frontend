@@ -15,18 +15,16 @@
             </div>
             {{SingleMovie.title ? SingleMovie.title : SingleMovie.name}}
         </h1>
-        <ul class="ui inverted" v-if="SingleMovie.production_companies">
-            <li class="item" v-for="company in SingleMovie.production_companies">{{company.name}}</li>
-        </ul>
-        <ul class="ui inverted" v-if="SingleMovie.networks">
-            <li class="item" v-for="network in SingleMovie.networks">{{network.name}}</li>
+        <ul class="ui inverted" >
+            <li class="item" v-if="SingleMovie.production_companies" v-for="company in SingleMovie.production_companies">{{company.name}}</li>
+            <li class="item" v-if="SingleMovie.networks" v-for="network in SingleMovie.networks">{{network.name}}</li>
         </ul>
     </div>
 </div>
 
 <main class="ui text container details-view">
     <div class="ui top left attached">
-        <span class="ui label">{{mediatype}}</span> <span class="ui label"><i class="yellow star icon"></i>{{SingleMovie.vote_average}}</span>
+        <span class="ui label" :class="mediatype==='movie' ? 'blue' : 'teal'">{{mediatype}}</span> <span class="ui label"><i class="yellow star icon"></i>{{SingleMovie.vote_average}}</span>
     </div>
     <div class="ui celled horizontal list genres" v-if="SingleMovie.genres">
         <div class="item" v-for="genre in SingleMovie.genres">{{genre.name}}</div>
@@ -41,7 +39,6 @@
         <a v-if="SingleMovie.homepage" class="home-link" href="{{SingleMovie.homepage}}" target="_blank">{{SingleMovie.homepage}}</a>
         <p class="small" v-else>keine Information vorhanden</p>
 
-
         <h2 class="ui medium header">Erschienen:</h2>
         <p class="small" v-if="SingleMovie.release_date">
             {{getFormatedDate(SingleMovie.release_date)}}
@@ -49,6 +46,7 @@
         <p class="small" v-if="SingleMovie.first_air_date">
             {{getFormatedDate(SingleMovie.first_air_date)}}
         </p>
+
         <p class="small" v-if="!SingleMovie.release_date && !SingleMovie.first_air_date">keine Information vorhanden</p>
 
         <section v-if="mediatype === 'movie'">
@@ -56,6 +54,8 @@
             <p class="small" v-if="SingleMovie.runtime"><span>{{SingleMovie.runtime}} Minuten</span></p>
             <p class="small" v-else>keine Information vorhanden</p>
         </section>
+
+        <div class="hidden spacer"></div>
 
         <section v-if="mediatype === 'tv'">
             <h2 class="ui medium header">Staffel-Informationen:</h2>
@@ -66,11 +66,11 @@
                 </div>
                 <div class="four wide column cast">
                     <strong class="header">Staffeln</strong><br/>
-                    <small class="meta">{{SingleMovie.number_of_seasons}}</small>
+                    <small class="ui green tiny label meta">{{SingleMovie.number_of_seasons}}</small>
                 </div>
                 <div class="four wide column cast">
                     <strong class="header">Episoden</strong><br/>
-                    <small class="meta">{{SingleMovie.number_of_episodes}}</small>
+                    <small class="ui orange tiny label meta">{{SingleMovie.number_of_episodes}}</small>
                 </div>
                 <div class="four wide column cast">
                     <strong class="header">Spieldauer</strong><br/>
