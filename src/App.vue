@@ -104,7 +104,7 @@
         main {
             position: relative;
             top: 6rem;
-            padding-bottom: 10rem;
+            padding-bottom: 12rem;
         }
 
         .spacer {
