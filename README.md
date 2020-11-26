@@ -1,4 +1,6 @@
 # tmdb-vue-frontend
+This site makes use of the TMDb API. Hence you need to get an API key. You can get the key at their website at: https://developers.themoviedb.org/3/
+Alter the .env file and use your API key with the API_KEY variable.
 
 ## Project setup
 ```
