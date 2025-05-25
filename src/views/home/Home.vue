@@ -2,7 +2,7 @@
     <transition name="fade" mode="out-in" appear>
         <div @mouseenter="setSearchResultsVisible(false)">
 
-            <featured movieNumber="497582" getType="movie" />
+            <featured movieNumber="76600" getType="movie" />
 
             <main class="ui container">
                 <h2 class="ui dividing header">Discover {{maxResultsToLoad}} Top Rated Productions</h2>

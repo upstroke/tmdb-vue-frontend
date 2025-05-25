@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" mode="out-in" appear>
         <div @mouseenter="setSearchResultsVisible(false)">
-            <featured movieNumber="19995" getType="movie" />
+            <featured movieNumber="693134" getType="movie" />
 
             <main class="ui container">
                 <h2 class="ui dividing header">Top {{maxResultsToLoad}} Top Rated</h2>
